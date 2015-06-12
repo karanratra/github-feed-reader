@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html class="options_page">
+    <head>
+        <title>Options</title>
+        <link href="../stylesheets/options.css" type="text/css" rel="stylesheet" />
+        <link href="../stylesheets/jquery.mobile-1.4.5.min.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../scripts/lib/jquery-1.11.1.min.js"></script>
+         <script type="text/javascript" src="../scripts/lib/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+
+    <body class="options_page">
+        <div  >
+  <div data-role="main" class="ui-content">
+    <h2>My Phonebook</h2>
+    <form class="ui-filterable">
+      <input id="myFilter" data-type="search" placeholder="search" style="width:100px;" >
+    </form>
+    <ul data-role="listview" data-filter="true" data-input="#myFilter" data-autodividers="true" data-inset="true">
+      <li><a href="#">Adele</a></li>
+      <li><a href="#">Agnes</a></li>
+      <li><a href="#">Albert</a></li>
+      <li><a href="#">Billy</a></li>
+      <li><a href="#">Bob</a></li>
+      <li><a href="#">Calvin</a></li>
+      <li><a href="#">Cameron</a></li>
+      <li><a href="#">Chloe</a></li>
+      <li><a href="#">Christina</a></li>
+      <li><a href="#">Diana</a></li>
+      <li><a href="#">Gabriel</a></li>
+      <li><a href="#">Glen</a></li>
+      <li><a href="#">Ralph</a></li>
+      <li><a href="#">Valarie</a></li>
+    </ul>
+  </div>
+</div> 
+
+<div id="wrap"> 
+    <h1 id="header">DVD Collection</h1> 
+    <ul id="list"> 
+        <li><a href="#">Batman</a></li> 
+        <li><a href="#">Ice Age</a></li> 
+        <li><a href="#">Star Trek (2009)</a></li> 
+        <li><a href="#">Tremors</a></li> 
+    </ul> 
+</div> 
+<script> 
+	(function ($) {
+	  jQuery.expr[':'].Contains = function(a,i,m){
+		  return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+	  };
+	 
+	  function listFilter(header, list) {
+		var form = $("<form>").attr({"class":"filterform","action":"#"}),
+			input = $("<input>").attr({"class":"filterinput","type":"text"});
+		$(form).append(input).appendTo(header);
+	 
+		$(input)
+		  .change( function () {
+			var filter = $(this).val();
+			if(filter) {
+			  $(list).find("a:not(:Contains(" + filter + "))").parent().slideUp();
+			  $(list).find("a:Contains(" + filter + ")").parent().slideDown();
+			} else {
+			  $(list).find("li").slideDown();
+			}
+			return false;
+		  })
+		.keyup( function () {
+			$(this).change();
+		});
+	  }
+	
+	  $(function () {
+		listFilter($("#header"), $("#list"));
+	  });
+	}(jQuery));
+</script> 
+    </body>
+</html>

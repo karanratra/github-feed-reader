@@ -1,0 +1,55 @@
+{
+    "name": "Git Hub Feed Reader",
+    "description": "Feed reader for github activities!",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+    "icons": {
+        "1": "resources/data/images/rss_feed_reader_1.png"
+    },
+    "browser_action": {
+        "default_icon": "resources/data/images/rss_feed_reader_1.png",
+        "default_title": "Feed reader for github activities!",
+        "default_popup": "resources/data/html/popup.html"
+    },
+    "background": {
+        "scripts":
+                [
+                    "resources/data/scripts/lib/jquery.min.js",
+                    "resources/data/dist/js/bootstrap.min.js",
+                    "resources/data/scripts/background/background.js",
+                    "resources/data/scripts/background/local-db.js",
+                    "resources/data/scripts/view/feed-client.js",
+                    "resources/data/scripts/view/feed-view.js"
+                ]
+    },
+    "content_scripts": [{
+            "all_frames": false,
+            "css": ["resources/data/stylesheets/skin.css"],
+            "exclude_globs": ["http://127.0.0.1/*", "http://localhost/*"],
+            "js": [
+                "resources/data/scripts/lib/jquery.min.js",
+                "resources/data/scripts/view/init.js",
+                "resources/data/scripts/view/feed-client.js"
+                ],
+            "matches": [
+                "http://*/*", "https://*/*"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "options_page": "resources/data/html/options.html",
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "storage",
+        "<all_urls>",
+        "notifications",
+        "contextMenus",
+        "http://*/*",
+        "https://*/*"
+    ],
+    "web_accessible_resources": [
+        "resources/data/images/rss_feed_reader_1.png"
+    ]
+}
